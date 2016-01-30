@@ -2,25 +2,40 @@
 using System.Collections;
 using UnityStandardAssets.Characters.ThirdPerson;
 
-public class Babushka : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-	
-	}
+public class Babushka : MonoBehaviour
+{
+    [SerializeField] private GameObject currentTile;
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		// Plant
-		if (Input.GetButtonDown ("P1_A")) {
-
+		if (Input.GetButtonDown ("P1_A"))
+        {
+            if(currentTile.GetComponent<PlantTile>().GetIsInUse() == false)
+            {
+                currentTile.GetComponent<PlantTile>().SetIsInUse(true);
+                //Plant
+            }
 		}
 
 		// Water
-		if (Input.GetButtonDown ("P1_X")) {
-
+		if (Input.GetButtonDown ("P1_X"))
+        {
+            if(currentTile.GetComponent<PlantTile>().GetIsInUse() == true)
+            {
+                //Water
+            }
 		}
 	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "PlantTile")
+        {
+            currentTile = other.gameObject;
+        }
+    }
 
 	public void FreezeBabushka() {
 		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = false;
