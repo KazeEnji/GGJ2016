@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public partial class PlantGrowth : MonoBehaviour
+public class PlantGrowth : MonoBehaviour
 {
     //This script will control the plant growth
 
@@ -14,7 +14,14 @@ public partial class PlantGrowth : MonoBehaviour
 
     [Header("Time variables")]
     [SerializeField] private float timer = 0f;
-    [SerializeField] private int seconds;
+
+    [Header("Plant score value")]
+    [SerializeField] private int plantValue = 1;
+
+    private void Awake()
+    {
+        currentStage = 0;
+    }
     
     private void Update()
     {
@@ -24,44 +31,36 @@ public partial class PlantGrowth : MonoBehaviour
     private void PerformPlantGrowth()
     {
         timer += Time.deltaTime;
-        seconds = Mathf.RoundToInt(timer % 60);
 
-        switch (seconds)
+        if(timer >= 5f && currentStage == 0)
         {
-            case 5:
-                {
-                    IncrementPointValue();
+            IncrementPointValue();
 
-                    currentStage = 1;
+            currentStage = 1;
 
-                    plantStage1.SetActive(true);
-                    plantStage2.SetActive(false);
-                    plantStage3.SetActive(false);
-                    break;
-                }
-            case 10:
-                {
-                    IncrementPointValue();
+            plantStage1.SetActive(true);
+            plantStage2.SetActive(false);
+            plantStage3.SetActive(false);
+        }
+        else if(timer >= 10f && currentStage == 1)
+        {
+            IncrementPointValue();
 
-                    currentStage = 2;
+            currentStage = 2;
 
-                    plantStage1.SetActive(false);
-                    plantStage2.SetActive(true);
-                    plantStage3.SetActive(false);
-                    break;
-                }
-            case 20:
-                {
-                    IncrementPointValue();
+            plantStage1.SetActive(false);
+            plantStage2.SetActive(true);
+            plantStage3.SetActive(false);
+        }
+        else if(timer >= 20f && currentStage == 2)
+        {
+            IncrementPointValue();
 
-                    currentStage = 3;
+            currentStage = 3;
 
-                    plantStage1.SetActive(false);
-                    plantStage2.SetActive(false);
-                    plantStage3.SetActive(true);
-                    Debug.Log("Move to stage 3");
-                    break;
-                }
+            plantStage1.SetActive(false);
+            plantStage2.SetActive(false);
+            plantStage3.SetActive(true);
         }
     }
 
@@ -89,5 +88,15 @@ public partial class PlantGrowth : MonoBehaviour
                 }
         }
 
+    }
+
+    private void IncrementPointValue()
+    {
+        plantValue++;
+    }
+
+    private void DecrementPointValue()
+    {
+        plantValue--;
     }
 }
