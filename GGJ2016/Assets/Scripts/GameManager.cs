@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityStandardAssets.Characters.ThirdPerson;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
@@ -45,7 +46,21 @@ public class GameManager : MonoBehaviour {
 	//Dedushka Manager
 	[SerializeField] public Dedushka dedushka;
 
-	//Enemy Spawner
+    //Enemy Spawner
+
+    //Enemy Manager
+    [Header("Distance holders")]
+    [SerializeField] public float distance1 = -1;
+    [SerializeField] public float distance2 = -1;
+
+    [Header("Closest object holders")]
+    [SerializeField] public GameObject closestCandy;
+    [SerializeField] public GameObject closestPlant;
+
+    [Header("Lists")]
+    [SerializeField] public List<GameObject> plantList = new List<GameObject>();
+    [SerializeField] public List<GameObject> antList = new List<GameObject>();
+    [SerializeField] public List<GameObject> candyList = new List<GameObject>();
 
 	//Powerup Generator(?)
 
@@ -113,4 +128,86 @@ public class GameManager : MonoBehaviour {
 		dedushka.GetComponent<Animator> ().enabled = true;
 		dedushka.GetComponent<Rigidbody> ().drag = 9999;
 	}
+
+    public void AddPlants(GameObject _plant)
+    {
+        plantList.Add(_plant);
+        UpdateAnts();
+    }
+
+    public void AddAnts(GameObject _ant)
+    {
+        antList.Add(_ant);
+    }
+
+    public void AddCandy(GameObject _candy)
+    {
+        candyList.Add(_candy);
+        UpdateAnts();
+    }
+
+    public void UpdateAnts()
+    {
+        foreach(GameObject _ant in antList)
+        {
+            _ant.GetComponent<AntAI>().FindTarget();
+        }
+    }
+
+    public Transform FindTarget(GameObject _ant)
+    {
+        if(candyList.Count > 0)
+        {
+            foreach(GameObject _candy in candyList)
+            {
+                if(distance1 == -1)
+                {
+                    distance1 = Vector3.Distance(_ant.transform.position, _candy.transform.position);
+                    closestCandy = _candy;
+                }
+                else
+                {
+                    distance2 = Vector3.Distance(_ant.transform.position, _candy.transform.position);
+                }
+
+                if(distance2 < distance1)
+                {
+                    distance1 = distance2;
+                    closestCandy = _candy;
+                }
+            }
+
+            return closestCandy.transform;
+        }
+        else if(plantList.Count > 0)
+        {
+            foreach (GameObject _plant in plantList)
+            {
+                if (distance1 == -1)
+                {
+                    distance1 = Vector3.Distance(_ant.transform.position, _plant.transform.position);
+                    closestPlant = _plant;
+                }
+                else
+                {
+                    distance2 = Vector3.Distance(_ant.transform.position, _plant.transform.position);
+                }
+
+                if (distance2 < distance1)
+                {
+                    distance1 = distance2;
+                    closestPlant = _plant;
+                }
+            }
+
+            return closestPlant.transform;
+        }
+
+        distance1 = -1;
+        distance2 = -1;
+        closestCandy = null;
+        closestPlant = null;
+
+        return null;
+    }
 }
