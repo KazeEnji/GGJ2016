@@ -6,6 +6,7 @@ public class PlantTile : MonoBehaviour
     [SerializeField] private bool isInUse = false;
 
     [SerializeField] private GameObject currentPlant;
+    [SerializeField] private GameObject plantSpawnPoint;
 
     public bool GetIsInUse()
     {

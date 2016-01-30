@@ -6,6 +6,7 @@ public class EdgeTile : MonoBehaviour
     [SerializeField] private bool isInUse = false;
 
     [SerializeField] private GameObject currentTrap;
+    [SerializeField] private GameObject trapSpawnPoint;
 
     public bool GetIsInUse()
     {
