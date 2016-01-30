@@ -1,1 +1,3 @@
 Begin Plant mechanics:
+	Plant growth over time
+	Plant Degredation
