@@ -1,1 +1,5 @@
 Begin Plant mechanics:
+	Plant stages
+	Growth over time
+	Shrink on damage
+	Plant placement
