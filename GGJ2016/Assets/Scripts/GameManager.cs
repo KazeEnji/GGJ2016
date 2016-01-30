@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityStandardAssets.Characters.ThirdPerson;
 
 public class GameManager : MonoBehaviour {
 
@@ -28,10 +27,13 @@ public class GameManager : MonoBehaviour {
 
     //Score Manager
     [SerializeField] public int totalScore;
+
 	//Audio Manager
-	[SerializeField] private AudioSource audioSource;	//Level Timer
-	[SerializeField] private float timeLimit = 600f;
-	private float timer = 0f;
+	[SerializeField] private AudioSource audioSource;	
+
+	//Level Timer
+	[SerializeField] public float timeLimit = 600f;
+	[SerializeField] private float timer = 0f;
 
 	//Sky Manager
 	[SerializeField] public Sky sky;
@@ -74,43 +76,16 @@ public class GameManager : MonoBehaviour {
 	void Pause() {
 		if (GameManager.Instance.state == GameState.Playing) {
 			GameManager.Instance.state = GameState.Paused;
-			FreezeBabushka ();
-			FreezeDedushka ();
+			babushka.FreezeBabushka ();
+			dedushka.FreezeDedushka ();
 			audioSource.Pause ();
 		} else if (GameManager.Instance.state == GameState.Paused) {
 			GameManager.Instance.state = GameState.Playing;
-			UnfreezeBabushka ();
-			UnfreezeDedushka ();
+			babushka.UnfreezeBabushka ();
+			dedushka.UnfreezeDedushka ();
 			audioSource.Play ();
 
 		}
 	}
 
-	void FreezeBabushka() {
-		babushka.GetComponent<ThirdPersonCharacter> ().enabled = false;
-		babushka.GetComponent<ThirdPersonUserControl> ().enabled = false;
-		babushka.GetComponent<Animator> ().enabled = false;
-		babushka.GetComponent<Rigidbody> ().drag = 9999;
-	}
-
-	void UnfreezeBabushka() {
-		babushka.GetComponent<ThirdPersonCharacter> ().enabled = true;
-		babushka.GetComponent<ThirdPersonUserControl> ().enabled = true;
-		babushka.GetComponent<Animator> ().enabled = true;
-		babushka.GetComponent<Rigidbody> ().drag = 0;
-	}
-
-	void FreezeDedushka() {
-		dedushka.GetComponent<ThirdPersonCharacter> ().enabled = false;
-		dedushka.GetComponent<ThirdPersonUserControl2> ().enabled = false;
-		dedushka.GetComponent<Animator> ().enabled = false;
-		dedushka.GetComponent<Rigidbody> ().drag = 9999;
-	}
-
-	void UnfreezeDedushka() {
-		dedushka.GetComponent<ThirdPersonCharacter> ().enabled = true;
-		dedushka.GetComponent<ThirdPersonUserControl2> ().enabled = true;
-		dedushka.GetComponent<Animator> ().enabled = true;
-		dedushka.GetComponent<Rigidbody> ().drag = 9999;
-	}
 }
