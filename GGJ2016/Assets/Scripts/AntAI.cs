@@ -18,6 +18,7 @@ public class AntAI : MonoBehaviour
 
     private void Update()
     {
+        FindTarget();
         MoveToTarget();
     }
 
@@ -26,12 +27,18 @@ public class AntAI : MonoBehaviour
         agent.SetDestination(target.position);
     }
 
+    public void DestroyAnt()
+    {
+        this.gameObject.SetActive(false);
+    }
+
     public void FindTarget()
     {
         target = GameManager.Instance.FindTarget(this.gameObject);
 
         if(!target)
         {
+            Debug.Log("Target is null");
             target = chamomile.transform;
         }
     }
