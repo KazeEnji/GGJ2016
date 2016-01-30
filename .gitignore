@@ -24,5 +24,10 @@ ExportedObj/
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
+<<<<<<< HEAD
 GGJ2016/Library/
 GGJ2016/Temp/
+=======
+GGJ2016/Temp/
+GGJ2016/Library/
+>>>>>>> PlantMechanics

@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 05ae8352029432347b57383d3dac1289
 folderAsset: yes
 timeCreated: 1454118282
 licenseType: Free
+=======
+guid: 29da7b9af023db549bf4c89be64a7e58
+folderAsset: yes
+timeCreated: 1454117702
+licenseType: Pro
+>>>>>>> PlantMechanics
 DefaultImporter:
   userData: 
   assetBundleName: 
