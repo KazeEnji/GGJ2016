@@ -21,7 +21,7 @@ public class SunAndMoon : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		angle += Time.deltaTime * (Mathf.PI/GameManager.Instance.timeLimit);
+		angle = GameManager.Instance.timer * (Mathf.PI/GameManager.Instance.timeLimit);
 		float x = radiusX * Mathf.Cos (angle + (orbitType == OrbitMode.Sun ? 0 : Mathf.PI));
 		float y = radiusY * Mathf.Sin (angle) * (orbitType == OrbitMode.Sun ? 1 : -1);
 		transform.localPosition = new Vector3 (x, 1.25f, -y-radiusY/2);

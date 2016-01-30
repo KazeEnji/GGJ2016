@@ -6,11 +6,14 @@ public class AntAI : MonoBehaviour
 {
     //Ant AI script
     [SerializeField] private Transform target;
+    [SerializeField] private GameObject chamomile;
     [SerializeField] private NavMeshAgent agent;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        chamomile = GameObject.FindGameObjectWithTag("Chamomile");
+        GameManager.Instance.AddAnts(this.gameObject);
     }
 
     private void Update()
@@ -23,8 +26,13 @@ public class AntAI : MonoBehaviour
         agent.SetDestination(target.position);
     }
 
-    private void FindTarget()
+    public void FindTarget()
     {
-        //Pull target from game manager
+        target = GameManager.Instance.FindTarget(this.gameObject);
+
+        if(!target)
+        {
+            target = chamomile.transform;
+        }
     }
 }
