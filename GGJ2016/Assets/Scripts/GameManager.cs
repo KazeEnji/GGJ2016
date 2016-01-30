@@ -23,10 +23,11 @@ public class GameManager : MonoBehaviour {
 	//Game State
 	[SerializeField] public GameState state;
 
+	//UI Manager
+
 	//Level Timer
-	[SerializeField] private float timeLimit = 600;
+	[SerializeField] private float timeLimit = 600f;
 	[SerializeField] private float timer = 0f;
-	[SerializeField] private int seconds = 0;
 
 	//Sky Manager
 	[SerializeField] public GameObject sky;
@@ -52,11 +53,11 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (GameManager.Instance.state == GameState.Playing) {
-			if (seconds < timeLimit) {
+			if (timer < timeLimit) {
 				timer += Time.deltaTime;
-				seconds = Mathf.RoundToInt(timer % 60);
 			} else {
-				//Level End
+				//Game End Logic
+				state = GameState.Lost;
 			}
 		}	
 	}
