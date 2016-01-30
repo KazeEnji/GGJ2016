@@ -66,37 +66,33 @@ public class PlantGrowth : MonoBehaviour
 
     public void TakeDamage()
     {
-        switch (currentStage)
+        if(currentStage == 1)
         {
-            case 1:
-                {
-                    timer = 0f;
-                    DecrementPointValue();
-                    break;
-                }
-            case 2:
-                {
-                    timer = 6f;
-                    DecrementPointValue();
-                    break;
-                }
-            case 3:
-                {
-                    timer = 11f;
-                    DecrementPointValue();
-                    break;
-                }
+            currentStage--;
+            timer = 0f;
+            DecrementPointValue();
         }
-
+        else if(currentStage == 2)
+        {
+            currentStage--;
+            timer = 6f;
+            DecrementPointValue();
+        }
+        else if(currentStage == 3)
+        {
+            currentStage--;
+            timer = 11f;
+            DecrementPointValue();
+        }
     }
 
     private void IncrementPointValue()
     {
-        plantValue++;
+        GameManager.Instance.totalScore++;
     }
 
     private void DecrementPointValue()
     {
-        plantValue--;
+        GameManager.Instance.totalScore--;
     }
 }

@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour {
 
 	//UI Manager
 
+    //Score Manager
+    [SerializeField] public int totalScore;
+
 	//Level Timer
 	[SerializeField] private float timeLimit = 600f;
 	[SerializeField] private float timer = 0f;
