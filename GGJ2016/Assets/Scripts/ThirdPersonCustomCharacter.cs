@@ -40,11 +40,12 @@ public class ThirdPersonCustomCharacter : MonoBehaviour
 		// direction.
 		if (move.magnitude > 1f) move.Normalize();
 
+
 		Vector3 targetDirection = xAxis * Vector3.right + yAxis * Vector3.forward;
 		if (!targetDirection.Equals(Vector3.zero))
 			transform.rotation = Quaternion.LookRotation (targetDirection);
 
-		HandleGroundedMovement(move);
+		HandleGroundedMovement(move + Vector3.down * 0.98f);
 
 		// send input and other state parameters to the animator
 		UpdateAnimator(move);

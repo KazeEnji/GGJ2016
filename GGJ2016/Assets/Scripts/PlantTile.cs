@@ -74,6 +74,7 @@ public class PlantTile : MonoBehaviour
         if(_other.tag == "Babushka")
         {
             ActivateParticle();
+			Debug.Log ("activate");
             _other.GetComponent<Babushka>().SetCurrentTile(this.gameObject);
         }
     }
