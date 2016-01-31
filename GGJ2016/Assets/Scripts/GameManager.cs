@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour {
 
 	//UI Manager
 
-    //Score Manager
+	//Score Manager
+	[SerializeField] public int needScore = 40;
     [SerializeField] public int totalScore;
 
 	//Audio Manager
@@ -68,7 +69,20 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		GameObject[] fadeins = GameObject.FindGameObjectsWithTag ("FadeInLoss");
+		foreach (GameObject obj in fadeins) {
+			MeshRenderer renderer = obj.GetComponent<MeshRenderer> ();
+			if (renderer != null) {
+				renderer.material.color = new Color(renderer.material.color.r,renderer.material.color.g,renderer.material.color.b,0);
+			}
+		}
+		GameObject[] fadein2 = GameObject.FindGameObjectsWithTag ("FadeInWin");
+		foreach (GameObject obj in fadein2) {
+			MeshRenderer renderer = obj.GetComponent<MeshRenderer> ();
+			if (renderer != null) {
+				renderer.material.color = new Color(renderer.material.color.r,renderer.material.color.g,renderer.material.color.b,0);
+			}
+		}
 	}
 	
 	// Update is called once per frame
@@ -80,8 +94,95 @@ public class GameManager : MonoBehaviour {
 			if (timer < timeLimit) {
 				timer += Time.deltaTime;
 			} else {
-				//Game End Logic
-				state = GameState.Lost;
+				if (totalScore >= needScore) {
+					state = GameState.Win;
+					babushka.FreezeBabushka ();
+					dedushka.FreezeDedushka ();
+				} else {
+					state = GameState.Lost;
+					babushka.FreezeBabushka ();
+					dedushka.FreezeDedushka ();
+				}
+			}
+		} else if (GameManager.Instance.state == GameState.Lost) {
+			GameObject[] fadeins = GameObject.FindGameObjectsWithTag ("FadeInLoss");
+			GameObject[] fadeout = GameObject.FindGameObjectsWithTag ("FadeOutLoss");
+			GameObject[] fadeout2 = GameObject.FindGameObjectsWithTag ("FadeOutAlways");
+			foreach (GameObject obj in fadeins) {
+				MeshRenderer renderer = obj.GetComponent<MeshRenderer> ();
+				if (renderer != null) {
+					float newAlpha = renderer.material.color.a + 0.025f;
+					if (newAlpha >= 1) {
+						newAlpha = 1;
+						renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+						break;
+					}
+					renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+				}
+			}
+			foreach (GameObject obj in fadeout) {
+				MeshRenderer renderer = obj.GetComponent<MeshRenderer> ();
+				if (renderer != null) {
+					float newAlpha = renderer.material.color.a - 0.025f;
+					if (newAlpha <= 0) {
+						newAlpha = 0;
+						renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+						break;
+					}
+					renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+				}
+			}
+			foreach (GameObject obj in fadeout2) {
+				MeshRenderer renderer = obj.GetComponent<MeshRenderer> ();
+				if (renderer != null) {
+					float newAlpha = renderer.material.color.a - 0.025f;
+					if (newAlpha <= 0) {
+						newAlpha = 0;
+						renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+						break;
+					}
+					renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+				}
+			}
+		} else if (GameManager.Instance.state == GameState.Win) {
+			GameObject[] fadeins = GameObject.FindGameObjectsWithTag ("FadeInWin");
+			GameObject[] fadeout = GameObject.FindGameObjectsWithTag ("FadeOutWin");
+			GameObject[] fadeout2 = GameObject.FindGameObjectsWithTag ("FadeOutAlways");
+			foreach (GameObject obj in fadeins) {
+				MeshRenderer renderer = obj.GetComponent<MeshRenderer> ();
+				if (renderer != null) {
+					float newAlpha = renderer.material.color.a + 0.025f;
+					if (newAlpha >= 1) {
+						newAlpha = 1;
+						renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+						break;
+					}
+					renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+				}
+			}
+			foreach (GameObject obj in fadeout) {
+				MeshRenderer renderer = obj.GetComponent<MeshRenderer> ();
+				if (renderer != null) {
+					float newAlpha = renderer.material.color.a - 0.025f;
+					if (newAlpha <= 0) {
+						newAlpha = 0;
+						renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+						break;
+					}
+					renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+				}
+			}
+			foreach (GameObject obj in fadeout2) {
+				MeshRenderer renderer = obj.GetComponent<MeshRenderer> ();
+				if (renderer != null) {
+					float newAlpha = renderer.material.color.a - 0.025f;
+					if (newAlpha <= 0) {
+						newAlpha = 0;
+						renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+						break;
+					}
+					renderer.material.color = new Color (renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+				}
 			}
 		}
 	}
@@ -101,6 +202,12 @@ public class GameManager : MonoBehaviour {
 			audioSource.Play ();
 
 		}
+	}
+
+	void Win () {
+		GameObject[] fadeins = GameObject.FindGameObjectsWithTag ("FadeInWin");
+		GameObject[] fadeouts = GameObject.FindGameObjectsWithTag ("FadeOutWin");
+		GameObject[] fadeouts2 = GameObject.FindGameObjectsWithTag ("FadeOutWin");
 	}
 
 

@@ -22,10 +22,7 @@ public class Dedushka : MonoBehaviour
 			tools = new List<int> (2){3,-1};
 		}
 
-		if (tools [(int)currentTool] < 0) {
-			itemNumber.text = "∞";
-		}
-		else itemNumber.text = "x" + tools[(int)currentTool];
+		RenderTools ();
 	}
 	
 	// Update is called once per frame

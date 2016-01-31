@@ -5,7 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 namespace UnityStandardAssets.Characters.ThirdPerson
 {
 	[RequireComponent(typeof (ThirdPersonCharacter))]
-	public class ThirdPersonUserControl : MonoBehaviour
+	public class ThirdPersonUserControl2 : MonoBehaviour
 	{
 		private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
 		private Transform m_Cam;                  // A reference to the main camera in the scenes transform
@@ -38,7 +38,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 		private void Update()
 		{
-
+			
 		}
 
 
@@ -46,8 +46,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		private void FixedUpdate()
 		{
 			// read inputs
-			float h = CrossPlatformInputManager.GetAxis("P1_LJ_X");
-			float v = CrossPlatformInputManager.GetAxis("P1_LJ_Y");
+			float h = CrossPlatformInputManager.GetAxis("P2_LJ_X");
+			float v = CrossPlatformInputManager.GetAxis("P2_LJ_Y");
 			bool crouch = Input.GetKey(KeyCode.C);
 
 			// calculate move direction to pass to character
@@ -64,7 +64,9 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			}
 
 			// pass all parameters to the character control script
-			m_Character.Move(m_Move, crouch, m_Jump);
+			if (GameManager.Instance.state == GameManager.GameState.Playing) {
+				m_Character.Move (m_Move, crouch, m_Jump);
+			}
 		}
 	}
 }
