@@ -13,17 +13,17 @@ public class EdgeTile : MonoBehaviour
     private void Start()
     {
         selectionParticle = GetComponent<ParticleSystem>();
-        selectionParticle.Stop();
+        selectionParticle.enableEmission = false;
     }
 
     public void ActivateParticle()
     {
-        selectionParticle.Play();
+        selectionParticle.enableEmission = true;
     }
 
     public void DeactivateParticle()
     {
-        selectionParticle.Stop();
+        selectionParticle.enableEmission = false;
     }
 
     public bool GetIsInUse()
