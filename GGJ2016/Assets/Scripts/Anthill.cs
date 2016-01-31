@@ -55,6 +55,7 @@ public class Anthill : MonoBehaviour
         {
             GameObject _tempAnt = (GameObject)Instantiate(antPrefab, poolerLocation.transform.position, poolerLocation.transform.rotation);
             _tempAnt.name = this.gameObject.name + "_" + i;
+            _tempAnt.GetComponent<AntAI>().SetHomeAntHill(this.gameObject);
             internalAntList.Add(_tempAnt);
             _tempAnt.SetActive(false);
         }
