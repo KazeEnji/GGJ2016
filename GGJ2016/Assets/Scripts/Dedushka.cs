@@ -34,13 +34,13 @@ public class Dedushka : MonoBehaviour
 			{
 				switch (currentTool) {
 				case ToolType.Candy:
-					if (currentTile.GetComponent<PlantTile> ().GetIsInUse () == false) {
-						currentTile.GetComponent<PlantTile> ().SetIsInUse (true);
-						//Trap
+					if (currentTile.GetComponent<EdgeTile> ().GetIsInUse () == false) {
+						currentTile.GetComponent<EdgeTile> ().SetIsInUse (true);
+                            currentTile.GetComponent<EdgeTile>().SetTrap();
 					}
 					break;
 				case ToolType.Boot: 
-					if (currentTile.GetComponent<PlantTile> ().GetIsInUse () == true) {
+					if (currentTile.GetComponent<EdgeTile> ().GetIsInUse () == true) {
 						//Boot
 					}
 					break;
@@ -61,17 +61,14 @@ public class Dedushka : MonoBehaviour
 				RenderTools ();
 			}
 		}
-	}
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "EdgeTile")
-        {
-            currentTile = other.gameObject;
-        }
     }
 
-	void RenderTools() {
+    public void SetCurrentTile(GameObject _tile)
+    {
+        currentTile = _tile;
+    }
+
+    void RenderTools() {
 		int toolId = (int)currentTool;
 		string path = "Materials/Tool" + toolId;
 		Material m = Resources.Load(path) as Material;
