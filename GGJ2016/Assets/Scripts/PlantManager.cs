@@ -54,12 +54,12 @@ public class PlantManager : MonoBehaviour
 
     public void IncrementPointValue()
     {
-        GameManager.Instance.totalScore++;
+        GameManager.Instance.chamomile.totalScore++;
     }
 
     public void DecrementPointValue()
     {
-        GameManager.Instance.totalScore--;
+        GameManager.Instance.chamomile.totalScore--;
         timer -= 15f;
     }
 }
