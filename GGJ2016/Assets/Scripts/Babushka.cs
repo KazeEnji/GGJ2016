@@ -38,9 +38,14 @@ public class Babushka : MonoBehaviour
 				case SeedType.White:
 					if (currentTile.GetComponent<PlantTile> ().GetIsInUse () == false)
                     {
-					    currentTile.GetComponent<PlantTile> ().SetIsInUse (true);
-                        currentTile.GetComponent<PlantTile>().PlantFlower(currentSeed);
-					}
+                        if(seeds[(int)currentSeed] > 0)
+                            {
+                                currentTile.GetComponent<PlantTile>().SetIsInUse(true);
+                                currentTile.GetComponent<PlantTile>().PlantFlower(currentSeed);
+                                seeds[(int)currentSeed]--;
+                                RenderSeeds();
+                            }
+                        }
 					break;
 				case SeedType.Water: 
 					if (currentTile.GetComponent<PlantTile> ().GetIsInUse () == true) {
@@ -74,7 +79,7 @@ public class Babushka : MonoBehaviour
 	private void OnTriggerExit(Collider _other)
 	{
 		GameObject leftTile = _other.gameObject;
-		if (currentTile && currentTile.name == leftTile.name && leftTile.layer.Equals("PLantTile")) {
+		if (currentTile && currentTile.name == leftTile.name && leftTile.layer.Equals("PlantTile")) {
 			currentTile = null;
 		}
 
