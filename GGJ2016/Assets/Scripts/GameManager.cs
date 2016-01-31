@@ -24,12 +24,6 @@ public class GameManager : MonoBehaviour {
 	//Game State
 	[SerializeField] public GameState state;
 
-	//UI Manager
-
-	//Score Manager
-	[SerializeField] public int needScore = 40;
-    [SerializeField] public int totalScore;
-
 	//Audio Manager
 	[SerializeField] private AudioSource audioSource;	
 
@@ -37,11 +31,8 @@ public class GameManager : MonoBehaviour {
 	[SerializeField] public float timeLimit = 600f;
 	public float timer = 0f;
 
-	//Sky Manager
-	[SerializeField] public Sky sky;
-
-	//Plant Manager
-	[SerializeField] public GameObject plants;
+	//Score Manager
+	[SerializeField] public Chamomile chamomile;
 
 	//Babushka Manager
 	[SerializeField] public Babushka babushka;
@@ -94,7 +85,7 @@ public class GameManager : MonoBehaviour {
 			if (timer < timeLimit) {
 				timer += Time.deltaTime;
 			} else {
-				if (totalScore >= needScore) {
+				if (chamomile.totalScore >= chamomile.needScore) {
 					state = GameState.Win;
 					babushka.FreezeBabushka ();
 					dedushka.FreezeDedushka ();
@@ -203,12 +194,6 @@ public class GameManager : MonoBehaviour {
 			audioSource.Play ();
 
 		}
-	}
-
-	void Win () {
-		GameObject[] fadeins = GameObject.FindGameObjectsWithTag ("FadeInWin");
-		GameObject[] fadeouts = GameObject.FindGameObjectsWithTag ("FadeOutWin");
-		GameObject[] fadeouts2 = GameObject.FindGameObjectsWithTag ("FadeOutWin");
 	}
 
 
