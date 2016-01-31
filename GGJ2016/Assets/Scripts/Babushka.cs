@@ -71,6 +71,15 @@ public class Babushka : MonoBehaviour
         currentTile = _tile;
     }
 
+	private void OnTriggerExit(Collider _other)
+	{
+		GameObject leftTile = _other.gameObject;
+		if (currentTile && currentTile.name == leftTile.name && leftTile.layer.Equals("PLantTile")) {
+			currentTile = null;
+		}
+
+	}
+
 	void RenderSeeds() {
 		int seedId = (int)currentSeed;
 		string path = "Materials/Seed" + seedId;

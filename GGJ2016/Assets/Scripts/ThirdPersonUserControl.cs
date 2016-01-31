@@ -13,6 +13,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		private Vector3 m_Move;
 		private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
 
+		[SerializeField] private AudioClip footstep;
 
 		private void Start()
 		{
@@ -65,6 +66,12 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			// pass all parameters to the character control script
 			if (GameManager.Instance.state == GameManager.GameState.Playing) {
+				AudioSource audioSource = gameObject.GetComponent<AudioSource> ();
+				if (audioSource && !audioSource.isPlaying && ((m_Move.x > 0.2  || m_Move.x < -0.2) || (m_Move.y > 0.2  || m_Move.y < -0.2))) {
+					audioSource.clip = footstep;
+					audioSource.volume = 0.25f;
+					audioSource.Play ();
+				}
 				m_Character.Move (m_Move, crouch, m_Jump);
 			}
 		}

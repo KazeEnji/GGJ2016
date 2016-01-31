@@ -15,6 +15,9 @@ public class Dedushka : MonoBehaviour
 	[SerializeField] public ToolType currentTool = ToolType.Boot;
 	[SerializeField] private Image itemUI;
 	[SerializeField] private Text itemNumber;
+	[SerializeField] private AudioSource audioSource;
+	[SerializeField] private AudioClip candy;
+	[SerializeField] private AudioClip stomp;
 
     // Use this for initialization
     void Start () {
@@ -38,15 +41,20 @@ public class Dedushka : MonoBehaviour
 						currentTile.GetComponent<EdgeTile> ().SetIsInUse (true);
 						if (tools[(int)currentTool] > 0) {
 							currentTile.GetComponent<EdgeTile>().SetTrap();
+							audioSource.clip = candy;
+							audioSource.volume = 1;
+							audioSource.Play ();
+
 							tools[(int)currentTool]--;
 							RenderTools ();
 						}
 					}
 					break;
-				case ToolType.Boot: 
-					if (currentTile != null && currentTile.GetComponent<EdgeTile> ().GetIsInUse () == true) {
-						//Boot
-					}
+				case ToolType.Boot:
+					audioSource.clip = stomp;
+					audioSource.volume = 1;
+					audioSource.Play ();
+					StartCoroutine (PauseDedushka(0.5f));
 					break;
 				}
 			}
@@ -67,10 +75,32 @@ public class Dedushka : MonoBehaviour
 		}
     }
 
+	private IEnumerator PauseDedushka(float time) {
+		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = false;
+		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
+		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
+		gameObject.GetComponent<Rigidbody> ().drag = 9999;
+		yield return new WaitForSeconds (time);
+		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = true;
+		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
+		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
+		gameObject.GetComponent<Rigidbody> ().drag = 0;
+
+	}
+
     public void SetCurrentTile(GameObject _tile)
     {
         currentTile = _tile;
     }
+
+	private void OnTriggerExit(Collider _other)
+	{
+		GameObject leftTile = _other.gameObject;
+		if (currentTile && currentTile.name == leftTile.name && leftTile.layer.Equals("EdgeTile")) {
+			currentTile = null;
+		}
+
+	}
 
     void RenderTools() {
 		int toolId = (int)currentTool;
@@ -86,6 +116,7 @@ public class Dedushka : MonoBehaviour
 
     public void FreezeDedushka() {
 		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = false;
+		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
 		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
 		gameObject.GetComponent<Animator> ().enabled = false;
 		gameObject.GetComponent<Rigidbody> ().drag = 9999;
@@ -93,9 +124,10 @@ public class Dedushka : MonoBehaviour
 
 	public void UnfreezeDedushka() {
 		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = true;
+		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
 		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
 		gameObject.GetComponent<Animator> ().enabled = true;
-		gameObject.GetComponent<Rigidbody> ().drag = 9999;
+		gameObject.GetComponent<Rigidbody> ().drag = 0;
 	}
 
 }

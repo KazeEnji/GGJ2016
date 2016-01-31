@@ -83,7 +83,6 @@ public class PlantTile : MonoBehaviour
         if(_other.tag == "Babushka")
         {
             DeactivateParticle();
-            _other.GetComponent<Babushka>().SetCurrentTile(null);
         }
     }
 }
