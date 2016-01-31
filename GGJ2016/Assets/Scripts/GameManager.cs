@@ -206,6 +206,7 @@ public class GameManager : MonoBehaviour {
     public void AddAnts(GameObject _ant)
     {
         antList.Add(_ant);
+        UpdateAnts();
     }
 
     public void AddCandy(GameObject _candy)
