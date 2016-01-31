@@ -65,12 +65,9 @@ public class Babushka : MonoBehaviour
 		}
 	}
 
-    private void OnTriggerEnter(Collider other)
+    public void SetCurrentTile(GameObject _tile)
     {
-        if(other.tag == "PlantTile")
-        {
-            currentTile = other.gameObject;
-        }
+        currentTile = _tile;
     }
 
 	void RenderSeeds() {
