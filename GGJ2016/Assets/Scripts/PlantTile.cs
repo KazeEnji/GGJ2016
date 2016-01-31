@@ -13,17 +13,17 @@ public class PlantTile : MonoBehaviour
     private void Start()
     {
         selectionParticle = GetComponent<ParticleSystem>();
-        selectionParticle.Stop();
+        selectionParticle.enableEmission = false;
     }
 
     public void ActivateParticle()
     {
-        selectionParticle.Play();
+        selectionParticle.enableEmission = true;
     }
 
     public void DeactivateParticle()
     {
-        selectionParticle.Stop();
+        selectionParticle.enableEmission = false;
     }
 
     public bool GetIsInUse()
@@ -41,7 +41,7 @@ public class PlantTile : MonoBehaviour
         currentPlant = _plant;
     }
 
-    private void OnTriggerStay(Collider _other)
+    private void OnTriggerEnter(Collider _other)
     {
         if(_other.tag == "Babushka")
         {
