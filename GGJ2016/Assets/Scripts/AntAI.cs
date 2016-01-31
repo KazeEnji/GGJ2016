@@ -20,7 +20,14 @@ public class AntAI : MonoBehaviour
 
     private void Update()
     {
-        MoveToTarget();
+        if(GameManager.Instance.state == GameManager.GameState.Playing)
+        {
+            MoveToTarget();
+        }
+        else if(GameManager.Instance.state == GameManager.GameState.Lost)
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     private void MoveToTarget()
