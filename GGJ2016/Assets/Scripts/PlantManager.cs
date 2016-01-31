@@ -30,35 +30,35 @@ public class PlantManager : MonoBehaviour
 
         if (timer >= 10f && currentStage == 0)
         {
+			plantValue++;
             IncrementPointValue();
-
             anim.Play("PlantStage2_Growth");
 
             currentStage = 1;
         }
         else if (timer >= 20f && currentStage == 1)
-        {
+		{
+			plantValue++;
             IncrementPointValue();
-
             anim.Play("PlantStage3_Growth");
 
             currentStage = 2;
         }
         else if (timer >= 40f && currentStage == 2)
-        {
+		{
+			plantValue++;
             IncrementPointValue();
-
             currentStage = 3;
         }
     }
 
     private void IncrementPointValue()
     {
-		GameManager.Instance.chamomile.totalScore++;
+		GameManager.Instance.chamomile.totalScore += plantValue;
     }
 
     private void DecrementPointValue()
-    {
-		GameManager.Instance.chamomile.totalScore--;
+	{
+		GameManager.Instance.chamomile.totalScore += plantValue;
     }
 }
