@@ -36,9 +36,10 @@ public class Babushka : MonoBehaviour
 				case SeedType.Red:
 				case SeedType.Yellow:
 				case SeedType.White:
-					if (currentTile.GetComponent<PlantTile> ().GetIsInUse () == false) {
-					currentTile.GetComponent<PlantTile> ().SetIsInUse (true);
-						//Plant
+					if (currentTile.GetComponent<PlantTile> ().GetIsInUse () == false)
+                    {
+					    currentTile.GetComponent<PlantTile> ().SetIsInUse (true);
+                        currentTile.GetComponent<PlantTile>().PlantFlower(currentSeed);
 					}
 					break;
 				case SeedType.Water: 

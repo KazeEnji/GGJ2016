@@ -7,6 +7,8 @@ public class PlantTile : MonoBehaviour
 
     [SerializeField] private ParticleSystem selectionParticle;
 
+    [SerializeField] private GameObject redFlower, yellowFlower, whiteFlower;
+
     [SerializeField] private GameObject currentPlant;
     [SerializeField] private GameObject plantSpawnPoint;
 
@@ -14,6 +16,32 @@ public class PlantTile : MonoBehaviour
     {
         selectionParticle = GetComponent<ParticleSystem>();
         selectionParticle.enableEmission = false;
+
+        redFlower.SetActive(false);
+        yellowFlower.SetActive(false);
+        whiteFlower.SetActive(false);
+    }
+
+    public void PlantFlower(Babushka.SeedType _seed)
+    {
+        switch (_seed)
+        {
+            case Babushka.SeedType.Red:
+                {
+                    redFlower.SetActive(true);
+                    break;
+                }
+            case Babushka.SeedType.White:
+                {
+                    whiteFlower.SetActive(true);
+                    break;
+                }
+            case Babushka.SeedType.Yellow:
+                {
+                    yellowFlower.SetActive(true);
+                    break;
+                }
+        }
     }
 
     public void ActivateParticle()
