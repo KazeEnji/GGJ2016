@@ -10,7 +10,7 @@ public class PlantManager : MonoBehaviour
     [Header("Time variables")]
 	[SerializeField] private float growthTimer = 0f;
 	[SerializeField] private float pointTimer = 0f;
-	[SerializeField] private float pointPeriod = 15;
+	[SerializeField] private float pointPeriod = 5; // 5 seconds to grand points
 
     [Header("Plant score value")]
     [SerializeField] private int plantValue = 1;
