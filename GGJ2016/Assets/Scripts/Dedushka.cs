@@ -72,12 +72,10 @@ public class Dedushka : MonoBehaviour
 	private IEnumerator Stomp(float time) {
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Stomping",true);
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = false;
-		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
 		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
 		gameObject.GetComponent<Rigidbody> ().drag = 9999;
 		yield return new WaitForSeconds (time);
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = true;
-		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
 		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
 		gameObject.GetComponent<Rigidbody> ().drag = 0;
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Stomping",false);
@@ -89,12 +87,10 @@ public class Dedushka : MonoBehaviour
 	private IEnumerator Candy(float time) {
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Candy",true);
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = false;
-		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
 		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
 		gameObject.GetComponent<Rigidbody> ().drag = 9999;
 		yield return new WaitForSeconds (time);
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = true;
-		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
 		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
 		gameObject.GetComponent<Rigidbody> ().drag = 0;
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Candy",false);
@@ -131,7 +127,6 @@ public class Dedushka : MonoBehaviour
 
     public void FreezeDedushka() {
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = false;
-		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
 		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
 		gameObject.GetComponent<Animator> ().enabled = false;
 		gameObject.GetComponent<Rigidbody> ().drag = 9999;
@@ -139,7 +134,6 @@ public class Dedushka : MonoBehaviour
 
 	public void UnfreezeDedushka() {
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = true;
-		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
 		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
 		gameObject.GetComponent<Animator> ().enabled = true;
 		gameObject.GetComponent<Rigidbody> ().drag = 0;
