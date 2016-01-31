@@ -14,6 +14,8 @@ public class EdgeTile : MonoBehaviour
     {
         selectionParticle = GetComponent<ParticleSystem>();
         selectionParticle.enableEmission = false;
+
+        currentTrap.SetActive(false);
     }
 
     public void ActivateParticle()
@@ -36,8 +38,26 @@ public class EdgeTile : MonoBehaviour
         isInUse = _value;
     }
 
-    public void SetCurrentPlant(GameObject _trap)
+    public void SetTrap()
     {
-        currentTrap = _trap;
+        currentTrap.SetActive(true);
+    }
+
+    private void OnTriggerEnter(Collider _other)
+    {
+        if (_other.tag == "Dedushka")
+        {
+            ActivateParticle();
+            _other.GetComponent<Dedushka>().SetCurrentTile(this.gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider _other)
+    {
+        if (_other.tag == "Dedushka")
+        {
+            DeactivateParticle();
+            _other.GetComponent<Dedushka>().SetCurrentTile(null);
+        }
     }
 }
