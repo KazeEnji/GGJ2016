@@ -61,13 +61,16 @@ public class PlantManager : MonoBehaviour
 
 	public void IncrementPointValue()
     {
-		plantValue++;
+		plantValue+=3;
     }
 
    	public void DecrementPointValue()
     {
-		plantValue--;
-		currentStage--;
-		growthTimer -= 15f;
+        if(plantValue > 0)
+        {
+            plantValue--;
+            currentStage--;
+            growthTimer -= 15f;
+        }
     }
 }
