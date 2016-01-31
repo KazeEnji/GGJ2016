@@ -47,14 +47,13 @@ public class AntAI : MonoBehaviour
 
     public void OnTriggerEnter(Collider _other)
     {
-        if(_other.tag == "RedFlower")
+		if(_other.tag == "RedFlower")
         {
-            Debug.Log("Hit a flower");
-            _other.GetComponent<PlantManager>().DecrementPointValue();
+			if (!isHeadedHome) _other.GetComponent<PlantManager>().DecrementPointValue();
             isHeadedHome = true;
             target = homeAnthill.transform;
         }
-        else if(_other.tag == "Anthill")
+		else if(_other.tag == "Anthill")
         {
             isHeadedHome = false;
             FindTarget();

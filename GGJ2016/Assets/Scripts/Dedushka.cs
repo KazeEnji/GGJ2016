@@ -47,7 +47,7 @@ public class Dedushka : MonoBehaviour
 						}
 					}
 					break;
-				case ToolType.Boot:					
+				case ToolType.Boot:
 					StartCoroutine (Stomp(0.4f));
 					break;
 				}
@@ -103,6 +103,12 @@ public class Dedushka : MonoBehaviour
     {
         currentTile = _tile;
     }
+
+	public void OnTriggerEnter(Collider _other) {
+		if (_other.tag == "Ant") {
+			_other.GetComponent<AntAI> ().DestroyAnt ();
+		}
+	}
 
 	private void OnTriggerExit(Collider _other)
 	{

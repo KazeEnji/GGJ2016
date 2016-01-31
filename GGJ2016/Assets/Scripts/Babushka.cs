@@ -43,13 +43,14 @@ public class Babushka : MonoBehaviour
                                 currentTile.GetComponent<PlantTile>().SetIsInUse(true);
                                 currentTile.GetComponent<PlantTile>().PlantFlower(currentSeed);
                                 seeds[(int)currentSeed]--;
+								StartCoroutine (Plant(0.25f));
                                 RenderSeeds();
                             }
                         }
 					break;
 				case SeedType.Water: 
 					if (currentTile.GetComponent<PlantTile> ().GetIsInUse () == true) {
-						//Water
+						StartCoroutine (Water(0.4f));
 					}
 					break;
 				}
@@ -69,6 +70,36 @@ public class Babushka : MonoBehaviour
 				RenderSeeds ();
 			}
 		}
+	}
+
+	private IEnumerator Plant(float time) {
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Planting",true);
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = false;
+		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
+		gameObject.GetComponent<Rigidbody> ().drag = 9999;
+		yield return new WaitForSeconds (time);
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = true;
+		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
+		gameObject.GetComponent<Rigidbody> ().drag = 0;
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Planting",false);
+		//audioSource.clip = stomp;
+		//audioSource.volume = 1;
+		//audioSource.Play ();
+	}
+
+	private IEnumerator Water(float time) {
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Watering",true);
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = false;
+		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
+		gameObject.GetComponent<Rigidbody> ().drag = 9999;
+		yield return new WaitForSeconds (time);
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = true;
+		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
+		gameObject.GetComponent<Rigidbody> ().drag = 0;
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Watering",false);
+		//audioSource.clip = candy;
+		//audioSource.volume = 1;
+		//audioSource.Play ();
 	}
 
     public void SetCurrentTile(GameObject _tile)
