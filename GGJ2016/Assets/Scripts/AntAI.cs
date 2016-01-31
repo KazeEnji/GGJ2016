@@ -9,6 +9,7 @@ public class AntAI : MonoBehaviour
     [SerializeField] private GameObject chamomile;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private GameObject homeAnthill;
+    [SerializeField] private bool isHeadedHome = false;
 
     private void Start()
     {
@@ -19,7 +20,6 @@ public class AntAI : MonoBehaviour
 
     private void Update()
     {
-        FindTarget();
         MoveToTarget();
     }
 
@@ -40,20 +40,30 @@ public class AntAI : MonoBehaviour
 
     public void OnTriggerEnter(Collider _other)
     {
-        if(_other.tag == "PlantTile" && _other.GetComponent<PlantTile>().GetIsInUse())
+        if(_other.tag == "RedFlower")
         {
+            _other.GetComponent<PlantManager>().DecrementPointValue();
+            isHeadedHome = true;
             target = homeAnthill.transform;
+        }
+        else if(_other.tag == "Anthill")
+        {
+            isHeadedHome = false;
+            FindTarget();
         }
     }
 
     public void FindTarget()
     {
-        target = GameManager.Instance.FindTarget(this.gameObject);
-
-        if(!target)
+        if(isHeadedHome == false)
         {
-            Debug.Log("Target is null");
-            target = chamomile.transform;
+            target = GameManager.Instance.FindTarget(this.gameObject);
+
+            if (!target)
+            {
+                Debug.Log("Target is null");
+                target = chamomile.transform;
+            }
         }
     }	
 }
