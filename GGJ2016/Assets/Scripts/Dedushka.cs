@@ -33,7 +33,7 @@ public class Dedushka : MonoBehaviour
 	{
 		// Plant
 		if (GameManager.Instance.state == GameManager.GameState.Playing) {
-			if (Input.GetButtonDown ("P2_A"))
+			if (Input.GetButtonDown ("P1_A"))
 			{
 				switch (currentTool) {
 				case ToolType.Candy:
@@ -41,32 +41,26 @@ public class Dedushka : MonoBehaviour
 						currentTile.GetComponent<EdgeTile> ().SetIsInUse (true);
 						if (tools[(int)currentTool] > 0) {
 							currentTile.GetComponent<EdgeTile>().SetTrap();
-							audioSource.clip = candy;
-							audioSource.volume = 1;
-							audioSource.Play ();
-
+							StartCoroutine (Candy(0.25f));
 							tools[(int)currentTool]--;
 							RenderTools ();
 						}
 					}
 					break;
-				case ToolType.Boot:
-					audioSource.clip = stomp;
-					audioSource.volume = 1;
-					audioSource.Play ();
-					StartCoroutine (PauseDedushka(0.5f));
+				case ToolType.Boot:					
+					StartCoroutine (Stomp(0.4f));
 					break;
 				}
 			}
 
 			//Weapon Toggle
-			if (Input.GetButtonDown ("P2_R1"))
+			if (Input.GetButtonDown ("P1_R1"))
 			{
 				int nextSeed = ((int)currentTool + 1);
 				currentTool = nextSeed >= tools.Count ? 0 : (ToolType)nextSeed;
 				RenderTools ();
 			}
-			else if (Input.GetButtonDown ("P2_L1"))
+			else if (Input.GetButtonDown ("P1_L1"))
 			{
 				int nextSeed = ((int)currentTool - 1);
 				currentTool = nextSeed < 0 ? (ToolType)(tools.Count-1) : (ToolType)nextSeed;
@@ -75,17 +69,38 @@ public class Dedushka : MonoBehaviour
 		}
     }
 
-	private IEnumerator PauseDedushka(float time) {
-		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = false;
-		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
-		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
+	private IEnumerator Stomp(float time) {
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Stomping",true);
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = false;
+		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
+		//gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
 		gameObject.GetComponent<Rigidbody> ().drag = 9999;
 		yield return new WaitForSeconds (time);
-		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = true;
-		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
-		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = true;
+		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
+		//gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
 		gameObject.GetComponent<Rigidbody> ().drag = 0;
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Stomping",false);
+		audioSource.clip = stomp;
+		audioSource.volume = 1;
+		audioSource.Play ();
+	}
 
+	private IEnumerator Candy(float time) {
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Candy",true);
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = false;
+		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
+		//gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
+		gameObject.GetComponent<Rigidbody> ().drag = 9999;
+		yield return new WaitForSeconds (time);
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = true;
+		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
+		//gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
+		gameObject.GetComponent<Rigidbody> ().drag = 0;
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Candy",false);
+		audioSource.clip = candy;
+		audioSource.volume = 1;
+		audioSource.Play ();
 	}
 
     public void SetCurrentTile(GameObject _tile)
@@ -115,7 +130,7 @@ public class Dedushka : MonoBehaviour
 	}
 
     public void FreezeDedushka() {
-		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = false;
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = false;
 		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
 		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
 		gameObject.GetComponent<Animator> ().enabled = false;
@@ -123,7 +138,7 @@ public class Dedushka : MonoBehaviour
 	}
 
 	public void UnfreezeDedushka() {
-		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = true;
+		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = true;
 		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
 		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
 		gameObject.GetComponent<Animator> ().enabled = true;
