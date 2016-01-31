@@ -76,7 +76,8 @@ public class Dedushka : MonoBehaviour
 
 	void RenderTools() {
 		int toolId = (int)currentTool;
-		Material m = Resources.Load("Tool" + toolId) as Material;
+		string path = "Materials/Tool" + toolId;
+		Material m = Resources.Load(path) as Material;
 		itemUI.material = m;
 
 		if (tools[toolId] < 0) {
