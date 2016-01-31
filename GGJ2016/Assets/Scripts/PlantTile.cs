@@ -28,17 +28,29 @@ public class PlantTile : MonoBehaviour
         {
             case Babushka.SeedType.Red:
                 {
-                    if(redFlower != null) redFlower.SetActive(true);
+                    if(redFlower != null)
+                    {
+                        redFlower.SetActive(true);
+                        GameManager.Instance.AddPlants(this.gameObject);
+                    }
                     break;
                 }
             case Babushka.SeedType.White:
                 {
-                    if (whiteFlower != null) whiteFlower.SetActive(true);
+                    if (whiteFlower != null)
+                    {
+                        whiteFlower.SetActive(true);
+                        GameManager.Instance.AddPlants(this.gameObject);
+                    }
                     break;
                 }
             case Babushka.SeedType.Yellow:
                 {
-                    if (yellowFlower != null) yellowFlower.SetActive(true);
+                    if (yellowFlower != null)
+                    {
+                        yellowFlower.SetActive(true);
+                        GameManager.Instance.AddPlants(this.gameObject);
+                    }
                     break;
                 }
         }
