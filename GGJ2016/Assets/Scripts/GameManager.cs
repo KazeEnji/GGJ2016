@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour {
 					babushka.FreezeBabushka ();
 					dedushka.FreezeDedushka ();
 				} else {
-					state = GameState.Win;
+					state = GameState.Lost;
 					babushka.FreezeBabushka ();
 					dedushka.FreezeDedushka ();
 				}
