@@ -8,7 +8,9 @@ public class PlantManager : MonoBehaviour
     [SerializeField] private int currentStage;
 
     [Header("Time variables")]
-    [SerializeField] private float timer = 0f;
+	[SerializeField] private float growthTimer = 0f;
+	[SerializeField] private float pointTimer = 0f;
+	[SerializeField] private float pointPeriod = 15;
 
     [Header("Plant score value")]
     [SerializeField] private int plantValue = 1;
@@ -21,44 +23,51 @@ public class PlantManager : MonoBehaviour
 
     private void Update()
     {
+		pointTimer += Time.deltaTime;
+		if (pointTimer > pointPeriod) {
+			GameManager.Instance.chamomile.totalScore += plantValue;
+			pointTimer = 0;
+		}
         Growth();
     }
 
     private void Growth()
     {
-        timer += Time.deltaTime;
+		if (growthTimer < 40f) {
+			growthTimer += Time.deltaTime;
+		} else
+			growthTimer = 40f;
 
-        if (timer >= 10f && currentStage == 0)
+		if (growthTimer >= 10f && currentStage == 0)
         {
-			plantValue++;
             IncrementPointValue();
             anim.Play("PlantStage2_Growth");
 
             currentStage = 1;
         }
-        else if (timer >= 20f && currentStage == 1)
+		else if (growthTimer >= 20f && currentStage == 1)
 		{
-			plantValue++;
             IncrementPointValue();
             anim.Play("PlantStage3_Growth");
 
             currentStage = 2;
         }
-        else if (timer >= 40f && currentStage == 2)
+		else if (growthTimer >= 40f && currentStage == 2)
 		{
-			plantValue++;
             IncrementPointValue();
             currentStage = 3;
         }
     }
 
-    public void IncrementPointValue()
+	public void IncrementPointValue()
     {
-		GameManager.Instance.chamomile.totalScore += plantValue;
+		plantValue++;
     }
 
-	public void DecrementPointValue()
-	{
-		GameManager.Instance.chamomile.totalScore += plantValue;
+   	public void DecrementPointValue()
+    {
+		plantValue--;
+		currentStage--;
+		growthTimer -= 15f;
     }
 }

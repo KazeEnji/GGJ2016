@@ -42,6 +42,7 @@ public class AntAI : MonoBehaviour
     {
         if(_other.tag == "RedFlower")
         {
+            Debug.Log("Hit a flower");
             _other.GetComponent<PlantManager>().DecrementPointValue();
             isHeadedHome = true;
             target = homeAnthill.transform;
