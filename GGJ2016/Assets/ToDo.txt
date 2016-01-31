@@ -1,0 +1,9 @@
+Implement anthill
+implement chamomile
+implement dedushka traps
+implement dedushka stomp
+
+hookup chamomile to ants
+hookup flowers to babushka
+hookup traps to dedushka
+hookup stomp to dedushka
