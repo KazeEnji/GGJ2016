@@ -40,4 +40,22 @@ public class PlantTile : MonoBehaviour
     {
         currentPlant = _plant;
     }
+
+    private void OnTriggerStay(Collider _other)
+    {
+        if(_other.tag == "Babushka")
+        {
+            ActivateParticle();
+            _other.GetComponent<Babushka>().SetCurrentTile(this.gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider _other)
+    {
+        if(_other.tag == "Babushka")
+        {
+            DeactivateParticle();
+            _other.GetComponent<Babushka>().SetCurrentTile(null);
+        }
+    }
 }

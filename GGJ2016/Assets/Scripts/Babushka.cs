@@ -66,15 +66,12 @@ public class Babushka : MonoBehaviour
 		}
 	}
 
-    private void OnTriggerEnter(Collider other)
+    public void SetCurrentTile(GameObject _tile)
     {
-        if(other.tag == "PlantTile")
-        {
-            currentTile = other.gameObject;
-        }
+        currentTile = _tile;
     }
 
-	void RenderSeeds() {
+    void RenderSeeds() {
 		if (seeds[(int)currentSeed] < 0) {
 			itemNumber.text = "∞";
 		}
