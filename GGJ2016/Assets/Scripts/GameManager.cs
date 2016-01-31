@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour {
 					babushka.FreezeBabushka ();
 					dedushka.FreezeDedushka ();
 				} else {
-					state = GameState.Lost;
+					state = GameState.Win;
 					babushka.FreezeBabushka ();
 					dedushka.FreezeDedushka ();
 				}
@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 		} else if (GameManager.Instance.state == GameState.Win) {
+			GameObject.Find ("Sun").GetComponent<MeshRenderer> ().enabled = true;
 			GameObject[] fadeins = GameObject.FindGameObjectsWithTag ("FadeInWin");
 			GameObject[] fadeout = GameObject.FindGameObjectsWithTag ("FadeOutWin");
 			GameObject[] fadeout2 = GameObject.FindGameObjectsWithTag ("FadeOutAlways");
