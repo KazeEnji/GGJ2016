@@ -41,5 +41,5 @@ public class AntAI : MonoBehaviour
             Debug.Log("Target is null");
             target = chamomile.transform;
         }
-    }
+    }	
 }
