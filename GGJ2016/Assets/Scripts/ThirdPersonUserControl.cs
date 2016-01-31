@@ -54,7 +54,6 @@ public class ThirdPersonUserControl : MonoBehaviour
 				audioSource.volume = 0.25f;
 				audioSource.Play ();
 			}
-			Debug.Log (m_Move);
 			m_Character.Move (m_Move, h, v);
 		}
 	}

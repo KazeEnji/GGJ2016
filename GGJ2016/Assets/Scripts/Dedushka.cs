@@ -33,7 +33,7 @@ public class Dedushka : MonoBehaviour
 	{
 		// Plant
 		if (GameManager.Instance.state == GameManager.GameState.Playing) {
-			if (Input.GetButtonDown ("P1_A"))
+			if (Input.GetButtonDown ("P2_A"))
 			{
 				switch (currentTool) {
 				case ToolType.Candy:
@@ -54,13 +54,13 @@ public class Dedushka : MonoBehaviour
 			}
 
 			//Weapon Toggle
-			if (Input.GetButtonDown ("P1_R1"))
+			if (Input.GetButtonDown ("P2_R1"))
 			{
 				int nextSeed = ((int)currentTool + 1);
 				currentTool = nextSeed >= tools.Count ? 0 : (ToolType)nextSeed;
 				RenderTools ();
 			}
-			else if (Input.GetButtonDown ("P1_L1"))
+			else if (Input.GetButtonDown ("P2_L1"))
 			{
 				int nextSeed = ((int)currentTool - 1);
 				currentTool = nextSeed < 0 ? (ToolType)(tools.Count-1) : (ToolType)nextSeed;
@@ -72,13 +72,13 @@ public class Dedushka : MonoBehaviour
 	private IEnumerator Stomp(float time) {
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Stomping",true);
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = false;
-		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
-		//gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
+		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
+		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
 		gameObject.GetComponent<Rigidbody> ().drag = 9999;
 		yield return new WaitForSeconds (time);
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = true;
-		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
-		//gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
+		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
+		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
 		gameObject.GetComponent<Rigidbody> ().drag = 0;
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Stomping",false);
 		audioSource.clip = stomp;
@@ -89,13 +89,13 @@ public class Dedushka : MonoBehaviour
 	private IEnumerator Candy(float time) {
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Candy",true);
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = false;
-		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
-		//gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
+		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
+		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = false;
 		gameObject.GetComponent<Rigidbody> ().drag = 9999;
 		yield return new WaitForSeconds (time);
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().enabled = true;
-		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
-		//gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
+		//gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
+		gameObject.GetComponent<ThirdPersonUserControl2> ().enabled = true;
 		gameObject.GetComponent<Rigidbody> ().drag = 0;
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Candy",false);
 		audioSource.clip = candy;
