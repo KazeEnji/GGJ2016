@@ -31,13 +31,23 @@ public class Babushka : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "PlantTile")
+        if (other.tag == "PlantTile")
         {
+            other.GetComponent<PlantTile>().ActivateParticle();
             currentTile = other.gameObject;
         }
     }
 
-	public void FreezeBabushka() {
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "PlantTile")
+        {
+            other.GetComponent<PlantTile>().DeactivateParticle();
+            currentTile = null;
+        }
+    }
+
+    public void FreezeBabushka() {
 		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = false;
 		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = false;
 		gameObject.GetComponent<Animator> ().enabled = false;

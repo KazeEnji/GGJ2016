@@ -34,7 +34,17 @@ public class Dedushka : MonoBehaviour
     {
         if (other.tag == "EdgeTile")
         {
+            other.GetComponent<EdgeTile>().ActivateParticle();
             currentTile = other.gameObject;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "EdgeTile")
+        {
+            other.GetComponent<EdgeTile>().DeactivateParticle();
+            currentTile = null;
         }
     }
 

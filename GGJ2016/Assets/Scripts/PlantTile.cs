@@ -5,8 +5,26 @@ public class PlantTile : MonoBehaviour
 {
     [SerializeField] private bool isInUse = false;
 
+    [SerializeField] private ParticleSystem selectionParticle;
+
     [SerializeField] private GameObject currentPlant;
     [SerializeField] private GameObject plantSpawnPoint;
+
+    private void Start()
+    {
+        selectionParticle = GetComponent<ParticleSystem>();
+        selectionParticle.Stop();
+    }
+
+    public void ActivateParticle()
+    {
+        selectionParticle.Play();
+    }
+
+    public void DeactivateParticle()
+    {
+        selectionParticle.Stop();
+    }
 
     public bool GetIsInUse()
     {
