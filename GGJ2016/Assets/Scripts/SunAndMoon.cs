@@ -9,7 +9,7 @@ public class SunAndMoon : MonoBehaviour {
 	};
 
 	private float radiusX = 7.5f;
-	private float radiusY = 6;
+	private float radiusY = 7.5f;
 	private float angle = 0;
 
 	[SerializeField] private OrbitMode orbitType = OrbitMode.Moon;
