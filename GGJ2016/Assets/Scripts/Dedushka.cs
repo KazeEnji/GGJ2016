@@ -13,7 +13,7 @@ public class Dedushka : MonoBehaviour
     [SerializeField] private GameObject currentTile;
 	[SerializeField] public List<int> tools;
 	[SerializeField] public ToolType currentTool = ToolType.Boot;
-	[SerializeField] private GameObject itemUI;
+	[SerializeField] private Image itemUI;
 	[SerializeField] private Text itemNumber;
 
     // Use this for initialization
@@ -29,17 +29,42 @@ public class Dedushka : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		// Trap
-		if (Input.GetButtonDown ("P2_A"))
-        {
-            if (currentTile.GetComponent<EdgeTile>().GetIsInUse() == false)
-            {
-                currentTile.GetComponent<EdgeTile>().SetIsInUse(true);
-                //Trap
-            }
-        }
-    }
+	void Update ()
+	{
+		// Plant
+		if (GameManager.Instance.state == GameManager.GameState.Playing) {
+			if (Input.GetButtonDown ("P2_A"))
+			{
+				switch (currentTool) {
+				case ToolType.Candy:
+					if (currentTile.GetComponent<PlantTile> ().GetIsInUse () == false) {
+						currentTile.GetComponent<PlantTile> ().SetIsInUse (true);
+						//Trap
+					}
+					break;
+				case ToolType.Boot: 
+					if (currentTile.GetComponent<PlantTile> ().GetIsInUse () == true) {
+						//Boot
+					}
+					break;
+				}
+			}
+
+			//Weapon Toggle
+			if (Input.GetButtonDown ("P2_R1"))
+			{
+				int nextSeed = ((int)currentTool + 1);
+				currentTool = nextSeed >= tools.Count ? 0 : (ToolType)nextSeed;
+				RenderTools ();
+			}
+			else if (Input.GetButtonDown ("P2_L1"))
+			{
+				int nextSeed = ((int)currentTool + 1);
+				currentTool = nextSeed < tools.Count ? (ToolType)(tools.Count-1) : (ToolType)nextSeed;
+				RenderTools ();
+			}
+		}
+	}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -48,6 +73,17 @@ public class Dedushka : MonoBehaviour
             currentTile = other.gameObject;
         }
     }
+
+	void RenderTools() {
+		int toolId = (int)currentTool;
+		Material m = Resources.Load("Tool" + toolId) as Material;
+		itemUI.material = m;
+
+		if (tools[toolId] < 0) {
+			itemNumber.text = "∞";
+		}
+		else itemNumber.text = "x" + tools[(int)currentTool];
+	}
 
     public void FreezeDedushka() {
 		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = false;

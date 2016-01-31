@@ -13,7 +13,7 @@ public class Babushka : MonoBehaviour
     [SerializeField] private GameObject currentTile;
 	[SerializeField] public List<int> seeds;
 	[SerializeField] public SeedType currentSeed = SeedType.Yellow;
-	[SerializeField] private GameObject itemUI;
+	[SerializeField] private Image itemUI;
 	[SerializeField] private Text itemNumber;
 
 
@@ -54,13 +54,12 @@ public class Babushka : MonoBehaviour
 			{
 				int nextSeed = ((int)currentSeed + 1);
 				currentSeed = nextSeed >= seeds.Count ? 0 : (SeedType)nextSeed;
-				Debug.Log (currentSeed);
 				RenderSeeds ();
 			}
 			else if (Input.GetButtonDown ("P1_L1"))
 			{
-				int nextSeed = ((int)currentSeed + 1);
-				currentSeed = nextSeed < seeds.Count ? (SeedType)(seeds.Count-1) : (SeedType)nextSeed;
+				int nextSeed = ((int)currentSeed - 1);
+				currentSeed = nextSeed < 0 ? (SeedType)(seeds.Count-1) : (SeedType)nextSeed;
 				RenderSeeds ();
 			}
 		}
@@ -75,7 +74,12 @@ public class Babushka : MonoBehaviour
     }
 
 	void RenderSeeds() {
-		if (seeds[(int)currentSeed] < 0) {
+		int seedId = (int)currentSeed;
+		string path = "Materials/Seed" + seedId;
+		Material m = Resources.Load(path) as Material;
+		itemUI.material = m;
+
+		if (seeds[seedId] < 0) {
 			itemNumber.text = "∞";
 		}
 		else itemNumber.text = "x" + seeds[(int)currentSeed];
