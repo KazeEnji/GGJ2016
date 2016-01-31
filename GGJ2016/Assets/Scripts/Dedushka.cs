@@ -34,13 +34,17 @@ public class Dedushka : MonoBehaviour
 			{
 				switch (currentTool) {
 				case ToolType.Candy:
-					if (currentTile.GetComponent<EdgeTile> ().GetIsInUse () == false) {
+					if (currentTile != null && currentTile.GetComponent<EdgeTile> ().GetIsInUse () == false) {
 						currentTile.GetComponent<EdgeTile> ().SetIsInUse (true);
-                            currentTile.GetComponent<EdgeTile>().SetTrap();
+						if (tools[(int)currentTool] > 0) {
+							currentTile.GetComponent<EdgeTile>().SetTrap();
+							tools[(int)currentTool]--;
+							RenderTools ();
+						}
 					}
 					break;
 				case ToolType.Boot: 
-					if (currentTile.GetComponent<EdgeTile> ().GetIsInUse () == true) {
+					if (currentTile != null && currentTile.GetComponent<EdgeTile> ().GetIsInUse () == true) {
 						//Boot
 					}
 					break;
@@ -56,8 +60,8 @@ public class Dedushka : MonoBehaviour
 			}
 			else if (Input.GetButtonDown ("P2_L1"))
 			{
-				int nextSeed = ((int)currentTool + 1);
-				currentTool = nextSeed < tools.Count ? (ToolType)(tools.Count-1) : (ToolType)nextSeed;
+				int nextSeed = ((int)currentTool - 1);
+				currentTool = nextSeed < 0 ? (ToolType)(tools.Count-1) : (ToolType)nextSeed;
 				RenderTools ();
 			}
 		}

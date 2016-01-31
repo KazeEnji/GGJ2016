@@ -17,9 +17,9 @@ public class PlantTile : MonoBehaviour
         selectionParticle = GetComponent<ParticleSystem>();
         selectionParticle.enableEmission = false;
 
-        redFlower.SetActive(false);
-        yellowFlower.SetActive(false);
-        whiteFlower.SetActive(false);
+		if (redFlower != null) redFlower.SetActive(false);
+		if (yellowFlower != null) yellowFlower.SetActive(false);
+		if (whiteFlower != null) whiteFlower.SetActive(false);
     }
 
     public void PlantFlower(Babushka.SeedType _seed)
