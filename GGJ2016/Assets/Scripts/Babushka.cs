@@ -15,6 +15,9 @@ public class Babushka : MonoBehaviour
 	[SerializeField] public SeedType currentSeed = SeedType.Yellow;
 	[SerializeField] private Image itemUI;
 	[SerializeField] private Text itemNumber;
+	[SerializeField] private AudioSource audioSource;
+	[SerializeField] private AudioClip plant;
+	[SerializeField] private AudioClip water;
 
 
 	void Start () {
@@ -82,9 +85,9 @@ public class Babushka : MonoBehaviour
 		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
 		gameObject.GetComponent<Rigidbody> ().drag = 0;
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Planting",false);
-		//audioSource.clip = stomp;
-		//audioSource.volume = 1;
-		//audioSource.Play ();
+		audioSource.clip = plant;
+		audioSource.volume = 1;
+		audioSource.Play ();
 	}
 
 	private IEnumerator Water(float time) {
@@ -97,9 +100,9 @@ public class Babushka : MonoBehaviour
 		gameObject.GetComponent<ThirdPersonUserControl> ().enabled = true;
 		gameObject.GetComponent<Rigidbody> ().drag = 0;
 		gameObject.GetComponent<ThirdPersonCustomCharacter> ().UpdateParam("Watering",false);
-		//audioSource.clip = candy;
-		//audioSource.volume = 1;
-		//audioSource.Play ();
+		audioSource.clip = water;
+		audioSource.volume = 1;
+		audioSource.Play ();
 	}
 
     public void SetCurrentTile(GameObject _tile)

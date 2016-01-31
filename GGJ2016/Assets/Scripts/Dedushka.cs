@@ -18,6 +18,7 @@ public class Dedushka : MonoBehaviour
 	[SerializeField] private AudioSource audioSource;
 	[SerializeField] private AudioClip candy;
 	[SerializeField] private AudioClip stomp;
+	[SerializeField] private AudioClip squish;
 
     // Use this for initialization
     void Start () {
