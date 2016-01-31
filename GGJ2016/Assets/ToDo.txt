@@ -1,9 +1,17 @@
-Implement anthill
-implement chamomile
-implement dedushka traps
-implement dedushka stomp
+Implement anthill (Tim)
+	-Bake navigation
 
-hookup chamomile to ants
-hookup flowers to babushka
-hookup traps to dedushka
-hookup stomp to dedushka
+implement chamomile (Tim)
+
+implement dedushka traps (Cyris) 
+	-Mesh is there, Dedushka still needs to activate them
+
+implement dedushka stomp (Cyris)
+
+hookup chamomile to ants (Tim)
+hookup flowers to babushka (Tim)
+
+hookup traps to dedushka (Cyris)
+hookup stomp to dedushka (Cyris)
+
+hookup sounds (Both)
