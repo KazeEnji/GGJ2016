@@ -22,10 +22,7 @@ public class Babushka : MonoBehaviour
 			seeds = new List<int> (4){1,0,0,3};
 		}
 
-		if (seeds[(int)currentSeed] < 0) {
-			itemNumber.text = "∞";
-		}
-		else itemNumber.text = "x" + seeds[(int)currentSeed];
+		RenderSeeds ();
 	}
 
 	// Update is called once per frame
@@ -35,20 +32,36 @@ public class Babushka : MonoBehaviour
 		if (GameManager.Instance.state == GameManager.GameState.Playing) {
 			if (Input.GetButtonDown ("P1_A"))
 	        {
-	            if(currentTile.GetComponent<PlantTile>().GetIsInUse() == false)
-	            {
-	                currentTile.GetComponent<PlantTile>().SetIsInUse(true);
-	                //Plant
-	            }
+				switch (currentSeed) {
+				case SeedType.Red:
+				case SeedType.Yellow:
+				case SeedType.White:
+					if (currentTile.GetComponent<PlantTile> ().GetIsInUse () == false) {
+					currentTile.GetComponent<PlantTile> ().SetIsInUse (true);
+						//Plant
+					}
+					break;
+				case SeedType.Water: 
+					if (currentTile.GetComponent<PlantTile> ().GetIsInUse () == true) {
+						//Water
+					}
+					break;
+				}
 			}
 
-			// Water
-			if (Input.GetButtonDown ("P1_X"))
-	        {
-	            if(currentTile.GetComponent<PlantTile>().GetIsInUse() == true)
-	            {
-	                //Water
-	            }
+			//Weapon Toggle
+			if (Input.GetButtonDown ("P1_R1"))
+			{
+				int nextSeed = ((int)currentSeed + 1);
+				currentSeed = nextSeed >= seeds.Count ? 0 : (SeedType)nextSeed;
+				Debug.Log (currentSeed);
+				RenderSeeds ();
+			}
+			else if (Input.GetButtonDown ("P1_L1"))
+			{
+				int nextSeed = ((int)currentSeed + 1);
+				currentSeed = nextSeed < seeds.Count ? (SeedType)(seeds.Count-1) : (SeedType)nextSeed;
+				RenderSeeds ();
 			}
 		}
 	}
@@ -60,6 +73,13 @@ public class Babushka : MonoBehaviour
             currentTile = other.gameObject;
         }
     }
+
+	void RenderSeeds() {
+		if (seeds[(int)currentSeed] < 0) {
+			itemNumber.text = "∞";
+		}
+		else itemNumber.text = "x" + seeds[(int)currentSeed];
+	}
 
 	public void FreezeBabushka() {
 		gameObject.GetComponent<ThirdPersonCharacter> ().enabled = false;
