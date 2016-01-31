@@ -8,6 +8,7 @@ public class AntAI : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private GameObject chamomile;
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private GameObject homeAnthill;
 
     private void Start()
     {
@@ -30,6 +31,19 @@ public class AntAI : MonoBehaviour
     public void DestroyAnt()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void SetHomeAntHill(GameObject _home)
+    {
+        homeAnthill = _home;
+    }
+
+    public void OnTriggerEnter(Collider _other)
+    {
+        if(_other.tag == "PlantTile" && _other.GetComponent<PlantTile>().GetIsInUse())
+        {
+            target = homeAnthill.transform;
+        }
     }
 
     public void FindTarget()
