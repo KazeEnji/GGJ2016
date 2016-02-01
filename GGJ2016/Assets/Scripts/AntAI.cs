@@ -9,7 +9,8 @@ public class AntAI : MonoBehaviour
     [SerializeField] private GameObject chamomile;
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private GameObject homeAnthill;
-    [SerializeField] private bool isHeadedHome = false;
+    private bool isHeadedHome = false;
+	private bool bitFlower = false;
 
     private void Start()
     {
@@ -49,14 +50,22 @@ public class AntAI : MonoBehaviour
     {
 		if(_other.tag == "RedFlower")
         {
-			if (!isHeadedHome) _other.GetComponent<PlantManager>().DecrementPointValue();
-            isHeadedHome = true;
-            target = homeAnthill.transform;
-        }
+			if (!bitFlower) {
+				bitFlower = true;
+				_other.GetComponent<PlantManager> ().DecrementPointValue ();
+			}
+			Retreat ();
+		} else if(_other.tag == "Chamomile")
+		{
+			if (!bitFlower) {
+				bitFlower = true;
+				if (GameManager.Instance.chamomile.totalScore > 0) GameManager.Instance.chamomile.totalScore--;
+			}
+			Retreat ();
+		}
 		else if(_other.tag == "Anthill")
         {
-            isHeadedHome = false;
-            FindTarget();
+			if (isHeadedHome) this.gameObject.SetActive (false);
         }
     }
 
@@ -71,5 +80,10 @@ public class AntAI : MonoBehaviour
                 target = chamomile.transform;
             }
         }
-    }	
+    }
+
+	public void Retreat() {
+		isHeadedHome = true;
+		target = homeAnthill.transform;
+	}
 }

@@ -5,7 +5,7 @@ public class PlantManager : MonoBehaviour
 {
     [SerializeField] private Animator anim;
 
-    [SerializeField] private int currentStage;
+    private int currentStage = 0;
 
     [Header("Time variables")]
 	[SerializeField] private float growthTimer = 0f;
@@ -38,39 +38,38 @@ public class PlantManager : MonoBehaviour
 		} else
 			growthTimer = 40f;
 
-		if (growthTimer >= 10f && currentStage == 0)
+		//TODO: Time to next growth instead of set times
+		if (growthTimer >= 10f)
         {
             IncrementPointValue();
-            anim.Play("PlantStage2_Growth");
-
-            currentStage = 1;
         }
-		else if (growthTimer >= 20f && currentStage == 1)
+		else if (growthTimer >= 20f)
 		{
             IncrementPointValue();
-            anim.Play("PlantStage3_Growth");
-
-            currentStage = 2;
         }
-		else if (growthTimer >= 40f && currentStage == 2)
+		else if (growthTimer >= 40f)
 		{
             IncrementPointValue();
-            currentStage = 3;
         }
     }
 
 	public void IncrementPointValue()
-    {
-		plantValue+=3;
+	{
+		plantValue++;
+		currentStage++;
+		if (currentStage > 1 && currentStage < 3) {
+			anim.Play ("PlantStage" + (currentStage+1) + "_Growth");
+		}
     }
 
    	public void DecrementPointValue()
     {
-        if(plantValue > 0)
+		if(currentStage < 3)
         {
             plantValue--;
-            currentStage--;
-            growthTimer -= 15f;
+			if (currentStage > 0) currentStage--;
+			anim.Play ("PlantStage" + (currentStage+1) + "_Idle");
+			growthTimer = Mathf.Max(growthTimer - 15f, 0) ;
         }
     }
 }

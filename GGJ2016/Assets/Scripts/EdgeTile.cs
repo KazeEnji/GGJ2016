@@ -41,6 +41,7 @@ public class EdgeTile : MonoBehaviour
     public void SetTrap()
     {
         currentTrap.SetActive(true);
+		GameManager.Instance.AddCandy(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider _other)

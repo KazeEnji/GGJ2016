@@ -49,7 +49,14 @@ public class Dedushka : MonoBehaviour
 					}
 					break;
 				case ToolType.Boot:
-					StartCoroutine (Stomp(0.4f));
+					if (tools[(int)currentTool] > 0) {
+						foreach (GameObject ant in GameManager.Instance.antList) {
+							ant.GetComponent<AntAI> ().Retreat ();
+						}
+						StartCoroutine (Stomp(0.4f));
+						tools[(int)currentTool]--;
+						RenderTools ();
+					}
 					break;
 				}
 			}
